@@ -45,7 +45,7 @@
         },
         methods: {
             removeTodo() {
-                this.$emit('removedTodo', this.index)
+                eventBus.$emit('removedTodo', this.index)
             },
             editTodo() {
                 this.beforeEditCache = this.title
@@ -57,7 +57,7 @@
                 
                 this.editing = false
 
-                this.$emit('doneEditing', {
+                eventBus.$emit('doneEditing', {
                     index: this.index,
                     todo: {
                         id: this.id,
