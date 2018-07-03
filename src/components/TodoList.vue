@@ -3,12 +3,12 @@
         <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="todo-input" placeholder="What needs to be done?">
 
         <transition-group enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-            <todo-item v-for="(todo, index) in todosFiltered" :key="todo.id" :todo="todo" :index="index" :checkAll="remaining == 0">
+            <todo-item v-for="(todo, index) in todosFiltered" :key="todo.id" :todo="todo" :index="index" :checkAll="!anyRemaining">
 
             </todo-item>
         </transition-group>
         <div class="extra-container">
-            <todo-check-all :anyRemaining="remaining == 0"></todo-check-all>
+            <todo-check-all :anyRemaining="anyRemaining"></todo-check-all>
             <todo-items-remaining :remaining="remaining"></todo-items-remaining>
         </div>
 
@@ -70,11 +70,11 @@ export default {
         eventBus.$on('clearCompleted', () => this.clearCompleted())
     },
     beforeDestroy() {
-        eventBus.$off('removedTodo', index => this.removeTodo(index))
-        eventBus.$off('doneEditing', data => this.doneEdit(data))
-        eventBus.$off('checkAllChanged', checked => this.checkAllTodos(checked))
-        eventBus.$off('filterChanged', filter => this.filter = filter)
-        eventBus.$off('clearCompleted', () => this.clearCompleted())
+        eventBus.$off('removedTodo')
+        eventBus.$off('doneEditing')
+        eventBus.$off('checkAllChanged')
+        eventBus.$off('filterChanged')
+        eventBus.$off('clearCompleted')
     },
     computed: {
         nextTodoId() {
@@ -83,6 +83,9 @@ export default {
         remaining() {
             return this.todos.filter(todo => !todo.completed).length
         },
+        anyRemaining() {
+            return this.remaining != 0
+        },
         todosFiltered() {
             if(this.filter == 'active')
                 return this.todos.filter(todo => !todo.completed)
@@ -90,6 +93,8 @@ export default {
                 return this.todos.filter(todo => todo.completed)
             else
                 return this.todos
+
+            return this.todos
         },
         showClearCompletedButton() {
             return this.todos.filter(todo => todo.completed).length > 0

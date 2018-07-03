@@ -1,7 +1,7 @@
 <template>
     <div>
         <label>
-            <input type="checkbox" :checked="anyRemaining" @change="allChecked"> Check All
+            <input type="checkbox" :checked="!anyRemaining" @change="allChecked"> Check All
         </label>
     </div>
 </template>
@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         allChecked() {
-            eventBus.$emit('checkAllChanged', !this.anyRemaining)
+            eventBus.$emit('checkAllChanged', this.anyRemaining)
         }
     }
 }

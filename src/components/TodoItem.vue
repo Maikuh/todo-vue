@@ -40,7 +40,9 @@
         },
         watch: {
             checkAll() {
-                this.completed = this.checkAll ? true : false
+                // Set the status to true if Check All is true
+                // Else, set the status to the todo's status (i.e. false)
+                this.completed = this.checkAll ? true : this.todo.completed
             }
         },
         methods: {
