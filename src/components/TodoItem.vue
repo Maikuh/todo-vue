@@ -6,7 +6,7 @@
             <input v-else v-model="title" class="todo-item-edit" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus type="text">
         </div>
 
-        <div class="remove-item" @click="removeTodo">
+        <div class="remove-item" @click="removeTodo(todo.id)">
             &times;
         </div>
     </div>
@@ -46,8 +46,8 @@
             }
         },
         methods: {
-            removeTodo() {
-                eventBus.$emit('removedTodo', this.index)
+            removeTodo(id) {
+                this.$store.dispatch('deleteTodo', id)
             },
             editTodo() {
                 this.beforeEditCache = this.title
@@ -59,15 +59,13 @@
                 
                 this.editing = false
 
-                eventBus.$emit('doneEditing', {
-                    index: this.index,
-                    todo: {
-                        id: this.id,
-                        title: this.title,
-                        completed: this.completed,
-                        editing: this.editing
-                    }
+                this.$store.dispatch('updateTodo', {
+                    id: this.id,
+                    title: this.title,
+                    completed: this.completed,
+                    editing: this.editing
                 })
+
             },
             cancelEdit() {
                 this.title = this.beforeEditCache
