@@ -6,7 +6,7 @@
             <input v-else v-model="title" class="todo-item-edit" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus type="text">
         </div>
 
-        <div class="remove-item" @click="removeTodo(todo.id)">
+        <div class="remove-item" @click="removeTodo()">
             &times;
         </div>
     </div>
@@ -31,11 +31,10 @@
         },
         data() {
             return {
-                id: this.todo.id,
                 title: this.todo.title,
                 completed: this.todo.completed,
                 editing: this.todo.editing,
-                beforeEditCache: ''
+                beforeEditCache: '',
             }
         },
         watch: {
@@ -43,11 +42,18 @@
                 // Set the status to true if Check All is true
                 // Else, set the status to the todo's status (i.e. false)
                 this.completed = this.checkAll ? true : this.todo.completed
+            },
+            todo() {
+                // Watch for prop change and set local vars to prop's
+                this.title = this.todo.title
+                this.completed = this.todo.completed
+                this.editing = this.todo.editing
+                this.beforeEditCache = ''
             }
         },
         methods: {
-            removeTodo(id) {
-                this.$store.dispatch('deleteTodo', id)
+            removeTodo() {
+                this.$store.dispatch('deleteTodo', this.todo._id)
             },
             editTodo() {
                 this.beforeEditCache = this.title
@@ -60,7 +66,7 @@
                 this.editing = false
 
                 this.$store.dispatch('updateTodo', {
-                    id: this.id,
+                    _id: this.todo._id,
                     title: this.title,
                     completed: this.completed,
                     editing: this.editing

@@ -1,30 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
+axios.defaults.baseURL = 'http://localhost:3000/api'
 
 export const store = new Vuex.Store({
     state: {
         filter: 'all',
-        todos: [
-            {
-                id: 1,
-                title: 'Get outta here',
-                completed: false,
-                editing: false
-            },
-            {
-                id: 2,
-                title: 'Kill AT Val Hazak',
-                completed: false,
-                editing: false
-            }
-        ]
+        todos: []
     },
     getters: {
-        nextTodoId(state) {
-            return state.todos.length + 1
-        },
         remaining(state) {
             return state.todos.filter(todo => !todo.completed).length
         },
@@ -38,22 +24,23 @@ export const store = new Vuex.Store({
                 return state.todos.filter(todo => todo.completed)
             else
                 return state.todos
-
-            return state.todos
         },
         showClearCompletedButton(state) {
             return state.todos.filter(todo => todo.completed).length > 0
         }
     },
     mutations: {
+        getTodos(state, todos) {
+            state.todos = todos
+        },
         addTodo(state, todo) {
             state.todos.push(todo)
         },
         updateTodo(state, todo) {
-            const index = state.todos.findIndex(item => item.id == todo.id)
+            const index = state.todos.findIndex(item => item._id == todo._id)
 
             state.todos.splice(index, 1, {
-                id: todo.id,
+                _id: todo._id,
                 title: todo.title,
                 completed: todo.completed,
                 editing: todo.editing
@@ -74,35 +61,58 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
-        addTodo(context, todo) {
-            setTimeout(() => {
-                context.commit('addTodo', todo)
-            }, 300);
+        async getTodos(context) {
+            try {
+                const res = await axios.get('/todos')
+                context.commit('getTodos', res.data)    
+            } catch (err) {
+                console.log(err);
+            }
         },
-        updateTodo(context, todo) {
-            setTimeout(() => {
-                context.commit('updateTodo', todo)
-            }, 300);
+        async addTodo({commit}, todo) {
+            try {
+                const res = await axios.post('/todos', todo)
+                commit('addTodo', res.data)
+            } catch (err) {
+                console.log(err);
+            }
         },
-        deleteTodo(context, id) {
-            setTimeout(() => {
-                context.commit('deleteTodo', id)
-            }, 300);
+        async updateTodo({commit}, todo) {
+            try {
+                const res = await axios.patch(`/todos/${todo._id}`, todo)
+                commit('updateTodo', res.data)
+            } catch (err) {
+                console.log(err);
+            }
         },
-        clearCompleted(context) {
-            setTimeout(() => {
-                context.commit('clearCompleted')
-            }, 300);
+        async deleteTodo({commit}, id) {
+            try {
+                const res = await axios.delete(`/todos/${id}`)
+                commit('deleteTodo', id)
+            } catch (err) {
+                console.log(err);
+            }
         },
-        updateFilter(context, filter) {
-            setTimeout(() => {
-                context.commit('updateFilter', filter)
-            }, 300);
+        async clearCompleted({commit}) {
+            try {
+                const res = await axios.delete('/todos')
+                commit('clearCompleted')
+            } catch (err) {
+                console.log(err);
+            }
         },
-        checkAll(context, checked) {
-            setTimeout(() => {
-                context.commit('checkAll', checked)
-            }, 300);
+        updateFilter({commit}, filter) {
+            commit('updateFilter', filter)
+        },
+        async checkAll({commit}, checked) {
+            try {
+                const res = await axios.patch('/todos', {
+                    completed: checked
+                })
+                commit('checkAll', checked)
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 })

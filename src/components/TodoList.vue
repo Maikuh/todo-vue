@@ -3,7 +3,7 @@
         <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="todo-input" placeholder="What needs to be done?">
 
         <transition-group enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-            <todo-item v-for="(todo, index) in todosFiltered" :key="todo.id" :todo="todo" :index="index" :checkAll="!anyRemaining">
+            <todo-item v-for="(todo, index) in todosFiltered" :key="index" :todo="todo" :index="index" :checkAll="!anyRemaining">
 
             </todo-item>
         </transition-group>
@@ -47,6 +47,9 @@ export default {
             beforeEditCache: ''
         }
     },
+    created() {
+        this.$store.dispatch('getTodos')
+    },
     computed: {
         nextTodoId() {
             return this.$store.state.todos.length + 1
@@ -66,7 +69,6 @@ export default {
             
             // Add the new todo to the todo list
             this.$store.dispatch('addTodo', {
-                id: this.nextTodoId,
                 title: this.newTodo,
                 completed: false,
                 editing: false
@@ -74,6 +76,8 @@ export default {
 
             // Reset the input
             this.newTodo = ''
+
+            console.log(this.todosFiltered)            
         }
     }    
 }
