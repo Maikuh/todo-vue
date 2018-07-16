@@ -6,6 +6,7 @@ import Landing from '../components/home/Landing'
 import Login from '../components/user/Login'
 import Register from '../components/user/Register'
 import About from '../components/home/About'
+import Logout from '../components/user/Logout'
 
 Vue.use(Router)
 
@@ -19,7 +20,10 @@ export default new Router({
     {
       path: '/todo',
       name: 'App',
-      component: App
+      component: App,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/about',
@@ -29,12 +33,23 @@ export default new Router({
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: {
+        requiresVisitor: true
+      }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
     },
   ],
   mode: 'history'

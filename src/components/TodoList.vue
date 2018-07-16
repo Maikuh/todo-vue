@@ -1,7 +1,9 @@
 <template>
     <div>
-        <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="todo-input" placeholder="What needs to be done?">
+        <!-- <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="todo-input" placeholder="What needs to be done?"> -->
 
+        <v-text-field v-model="newTodo" @keyup.enter="addTodo" label="What needs to be done?"></v-text-field>
+        
         <transition-group enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
             <todo-item v-for="(todo, index) in todosFiltered" :key="index" :todo="todo" :index="index" :checkAll="!anyRemaining">
 
