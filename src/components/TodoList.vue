@@ -154,19 +154,19 @@ export default {
         margin-bottom: 14px;
     }
 
-    button {
-        font-size: 14px;
-        background-color: white;
-        appearance: none;
+    // button {
+    //     font-size: 14px;
+    //     background-color: white;
+    //     appearance: none;
 
-        &:hover {
-        background: lighten(dodgerblue, 20%);
-        }
+    //     &:hover {
+    //     background: lighten(dodgerblue, 20%);
+    //     }
 
-        &:focus {
-        outline: none;
-        }
-    }
+    //     &:focus {
+    //     outline: none;
+    //     }
+    // }
 
     .active {
         background: dodgerblue;

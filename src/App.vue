@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <router-view/>
+    <todo-list></todo-list>
   </div>
 </template>
 
@@ -8,7 +8,10 @@
 import TodoList from './components/TodoList'
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    TodoList,
+  }
 }
 </script>
 
@@ -22,12 +25,4 @@ export default {
   margin: 0 auto;
 }
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-  font-size: 24px;
-}
 </style>

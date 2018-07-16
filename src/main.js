@@ -1,7 +1,11 @@
 import Vue from 'vue'
-import App from './App'
+import Layout from './components/shared/Layout'
 import router from './router'
 import {store} from './store'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
+Vue.use(Vuetify)
 
 window.eventBus = new Vue()
 
@@ -12,5 +16,5 @@ new Vue({
   el: '#app',
   store,
   router,
-  render: h => h(App)
+  render: h => h(Layout)
 })
