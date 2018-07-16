@@ -2,9 +2,19 @@
     <div id="app">
         <v-navigation-drawer temporary v-model="drawer"
         :mini-variant="mini" light absolute class="white">
+            <v-toolbar flat>
+                <v-list>
+                    <v-list-tile>
+                        <v-list-tile-title class="title">
+                            Todos
+                        </v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-toolbar>
+
             <v-list dense>
-                <v-list-tile v-for="item in items" :key="item.title"
-                @click="" :href="item.link">
+                <v-list-tile v-for="item in navleft" :key="item.title"
+                @click="" :to="item.link">
                     <v-list-tile-action>
                         <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
@@ -23,7 +33,7 @@
             <v-toolbar-title>Todos</v-toolbar-title>
 
             <v-toolbar-items class="hidden-sm-and-down">
-                <v-btn v-for="(item, index) in 2" :key="index" flat :to="navleft[index].link">{{navleft[index].title}}</v-btn>
+                <v-btn v-for="(item, index) in navleft" :key="index" flat :to="item.link">{{item.title}}</v-btn>
             </v-toolbar-items>
             <v-spacer></v-spacer>
             
@@ -31,7 +41,7 @@
                 <!-- <v-btn to="/" flat>Home</v-btn>
                 <v-btn flat>Register</v-btn>
                 <v-btn flat>Login</v-btn> -->
-                    <v-btn v-for="(item, index) in 2" :key="index" flat :to="navright[index].link">{{navright[index].title}}</v-btn>
+                <v-btn v-for="(item, index) in navright" :key="index" flat :to="item.link">{{item.title}}</v-btn>
             </v-toolbar-items>
         </v-toolbar>
         
@@ -46,7 +56,8 @@ export default {
             drawer: false,
             navleft: [
                 { title: 'Home', icon: 'home', link: '/' },
-                { title: 'Todos', icon: 'check_box', link: '/todo' }
+                { title: 'About', icon: 'info', link: '/about' },
+                // { title: 'Todos', icon: 'check_box', link: '/todo' }
             ],
             navright: [
                 {title: 'Register', icon:'', link: '/register'},
