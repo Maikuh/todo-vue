@@ -42,6 +42,7 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      props: true,
       meta: {
         requiresVisitor: true
       }

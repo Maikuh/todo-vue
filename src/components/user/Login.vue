@@ -5,20 +5,20 @@
                 <h2>Login</h2>
                 <hr>
                 <v-alert :value="message" type="error" transition="fade-transition">{{message}}</v-alert>
+                <v-alert :value="successMsg" type="success" transition="fade-transition">{{successMsg}}</v-alert>
                 <br>
                 
-                <v-form @submit.prevent="submit" v-model="valid" ref="form" lazy-validation>
+                <v-form @keyup.native.enter="submit" v-model="valid" ref="form" lazy-validation>
                     <v-text-field v-model="username" :rules="usernameRules" label="Username"
                     required placeholder="Enter username here"></v-text-field>
 
-                    <v-text-field v-model="password"
+                    <v-text-field class="my-4" v-model="password"
                     label="Password" :rules="passRules" :append-icon="showPass ? 'visibility_off' : 'visibility'" :type="showPass ? 'text' : 'password'" @click:append="showPass = !showPass"
                     required placeholder="Enter password here"></v-text-field>
 
                     <v-flex class="text-xs-right">
-                            <v-btn type='submit' color="primary" :disabled="!valid">Submit</v-btn>
+                        <v-btn :loading="loading" @click="submit" color="primary" :disabled="!valid">Submit</v-btn>
                     </v-flex>
-
                 </v-form>
             </v-flex>
         </v-layout>
@@ -27,6 +27,11 @@
 
 <script>
 export default {
+    props: {
+        successMsg: {
+            type: String
+        }
+    },
     data() {
         return {
             valid: false,
@@ -41,7 +46,8 @@ export default {
                 v => v.length >= 4 || 'Password must be at least 6 characters'
             ],
             showPass: false,
-            message: ''
+            message: '',
+            loading: false
         }
     },
     methods: {
@@ -53,9 +59,14 @@ export default {
                     username: this.username,
                     password: this.password
                 })
-                .then(res => this.$router.push({name: 'App'}))
+                .then(res => {
+                    this.loading = true
+                    this.$router.push({name: 'App'})
+                    this.$store.commit('loading', true)
+                })
                 .catch(err => {
                     this.message = err.data.message
+                    this.password = ''
                 })
             }
         }

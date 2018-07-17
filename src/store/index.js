@@ -13,7 +13,9 @@ export const store = new Vuex.Store({
     state: {
         token: localStorage.getItem('access_token') || null,
         filter: 'all',
-        todos: []
+        todos: [],
+        user: null,
+        loading: false
     },
     getters: {
         remaining(state) {
@@ -35,11 +37,21 @@ export const store = new Vuex.Store({
         },
         loggedIn(state) {
             return state.token !== null
+        },
+        user(state) {
+            return state.user 
+        },
+        dialog(state){ 
+            return state.loading
         }
     },
     mutations: {
+        getUserInfo(state, user) {
+            state.user = user
+        },
         getTodos(state, todos) {
             state.todos = todos
+            state.loading = false
         },
         addTodo(state, todo) {
             state.todos.push(todo)
@@ -76,13 +88,29 @@ export const store = new Vuex.Store({
         logout(state) {
             state.token = null
             state.todos = []
+        },
+        loading(state, val) {
+            state.loading = val
         }
     },
     actions: {
+        async getUserInfo({commit}) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const res = await axios.get('/users')
+                    
+                    // console.log(res.data);
+                    resolve(res)
+                    commit('getUserInfo', res.data)    
+                } catch (err) {
+                    reject(err.response)
+                    console.log(err.response);
+                }
+            })
+        },
         async getTodos(context) {
             try {
                 const res = await axios.get('/todos')
-                console.log(res.data);
                 
                 context.commit('getTodos', res.data)    
             } catch (err) {

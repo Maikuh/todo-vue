@@ -3,7 +3,7 @@
         <!-- <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="todo-input" placeholder="What needs to be done?"> -->
         <v-container>
             <v-layout row wrap>
-                <v-flex xs12 sm6 offset-sm3 md4 offset-md4>
+                <v-flex xs12 sm8 offset-sm2 md6 offset-md3>
 
                     <v-text-field v-model="newTodo" @keyup.enter="addTodo" label="What needs to be done?"></v-text-field>
                             
@@ -90,7 +90,6 @@ export default {
 </script>
 
 <style lang="scss">
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
 
     .todo-input {
         width: 100%;

@@ -7,28 +7,28 @@
                 <v-alert :value="message" type="warning" transition="fade-transition">{{message}}</v-alert>
                 <br>
                 
-                <v-form @submit.prevent="submit" v-model="valid" ref="form" lazy-validation>
+                <v-form @keyup.native.enter="submit" v-model="valid" ref="form" lazy-validation>
                     <v-text-field v-model="name" :counter="10"
                     label="Name" required placeholder="Enter name here"></v-text-field>
 
-                    <v-text-field v-model="email"
+                    <v-text-field class="my-4" v-model="email"
                     :rules="emailRules" label="E-mail"
                     required placeholder="johndoe@example.com"></v-text-field>
 
-                    <v-text-field v-model="username"
+                    <v-text-field class="my-4" v-model="username"
                     :rules="usernameRules" label="Username"
                     required placeholder="Enter username here"></v-text-field>
 
-                    <v-text-field v-model="password"
+                    <v-text-field class="my-4" v-model="password"
                     :rules="passRules" label="Password" :append-icon="show1 ? 'visibility_off' : 'visibility'" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1"
                     required placeholder="Enter password here"></v-text-field>
 
-                    <v-text-field v-model="checkPass"
+                    <v-text-field class="my-4" v-model="checkPass"
                     :rules="checkPassRules" label="Repeat Password" :append-icon="show2 ? 'visibility_off' : 'visibility'" :type="show2 ? 'text' : 'password'" @click:append="show2 = !show2"
                     required placeholder="Repeat above password" ></v-text-field>
 
                     <v-flex class="text-xs-right">
-                            <v-btn type='submit' color="primary" :disabled="!valid">Submit</v-btn>
+                        <v-btn :loading="loading" @click="submit" color="primary" :disabled="!valid">Submit</v-btn>
                     </v-flex>
 
                 </v-form>
@@ -66,7 +66,8 @@ export default {
             ],
             show1: false,
             show2: false,
-            message: ''
+            message: '',
+            loading: false
         }
     },
     methods: {
@@ -83,10 +84,17 @@ export default {
                     console.log(res)
                     
                     this.message = ''
-                    this.$router.push({name: 'Login'})
+                    this.$router.push(
+                        {
+                            name: 'Login',
+                            params: {
+                                successMsg: 'Registered successfully. You can now log in'
+                            }
+                        }
+                    )
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log(err.response)
                     this.message = err.response.data.message
                 })
             }
