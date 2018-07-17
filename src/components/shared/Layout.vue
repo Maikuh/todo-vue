@@ -2,7 +2,7 @@
     <div id="app">
         <v-app>
             <v-navigation-drawer temporary v-model="drawer"
-            :mini-variant="mini" light absolute class="white">
+            light absolute class="white">
                 <v-toolbar flat>
                     <v-list>
                         <v-list-tile>

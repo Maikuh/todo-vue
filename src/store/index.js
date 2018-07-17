@@ -75,6 +75,7 @@ export const store = new Vuex.Store({
         },
         logout(state) {
             state.token = null
+            state.todos = []
         }
     },
     actions: {
@@ -99,7 +100,7 @@ export const store = new Vuex.Store({
         async updateTodo({commit}, todo) {
             try {
                 const res = await axios.patch(`/todos/${todo._id}`, todo)
-                commit('updateTodo', res.data)
+                commit('updateTodo', todo)
             } catch (err) {
                 console.log(err);
             }

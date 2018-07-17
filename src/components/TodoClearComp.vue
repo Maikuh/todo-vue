@@ -1,5 +1,6 @@
 <template>
-    <button v-if="showClearCompleted" @click="clearCompleted">Clear Completed</button>
+    <!-- <button v-if="showClearCompleted" @click="clearCompleted">Clear Completed</button> -->
+    <v-btn v-if="showClearCompleted" @click="clearCompleted" color="red">Clear Completed</v-btn>
 </template>
 
 <script>

@@ -64,7 +64,7 @@
                     this.title = this.beforeEditCache
                 
                 this.editing = false
-
+                
                 this.$store.dispatch('updateTodo', {
                     _id: this.todo._id,
                     title: this.title,

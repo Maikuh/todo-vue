@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container">
+  <div id="app">
     <todo-list></todo-list>
   </div>
 </template>
@@ -16,13 +16,5 @@ export default {
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-}
 
 </style>

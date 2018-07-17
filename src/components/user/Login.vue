@@ -4,7 +4,7 @@
             <v-flex xs12 sm6 offset-sm3 md4 offset-md4>
                 <h2>Login</h2>
                 <hr>
-                <v-alert :value="message" type="error" transition="scale-transition">{{message}}</v-alert>
+                <v-alert :value="message" type="error" transition="fade-transition">{{message}}</v-alert>
                 <br>
                 
                 <v-form @submit.prevent="submit" v-model="valid" ref="form" lazy-validation>
@@ -54,6 +54,9 @@ export default {
                     password: this.password
                 })
                 .then(res => this.$router.push({name: 'App'}))
+                .catch(err => {
+                    this.message = err.data.message
+                })
             }
         }
     }
