@@ -1,7 +1,10 @@
 <template>
     <div class="todo-item">
         <div class="todo-item-left">
-            <input type="checkbox" v-model="completed" @change="doneEdit">
+            <label>
+                <input type="checkbox" v-model="completed" @change="doneEdit">
+                <span></span>
+            </label>
             <div v-if="!editing" @dblclick="editTodo" class="todo-item-label" :class="{ completed: completed }">{{ title }}</div>
             <input v-else v-model="title" class="todo-item-edit" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus type="text">
         </div>
@@ -87,3 +90,52 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    input[type="checkbox"] {
+        display: none;
+
+        + span::before {
+            content: 'check_box_outline_blank';
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 2;
+            width: 1em;
+            color: gray;
+            display: inline-block;
+            animation: popOut .2s ease-in-out;
+        }
+
+        &:checked + span::before {
+            content: "check_box";
+            color: rgb(19, 121, 255);
+            animation: popIn .13s ease-in-out;
+        }
+    }
+
+    @keyframes popIn {
+        0% {transform: scale(0)}
+        90% {transform: scale(1.2)}
+        100% {transform: scale(1)}
+    }
+
+    @keyframes popOut {
+        0% {
+            transform: scale(1); 
+            content: "check_box";
+            color: rgb(19, 121, 255);
+        }
+        90% {
+            transform: scale(1.2);
+            content: "check_box";
+            color: rgb(19, 121, 255);
+        }
+        100% {
+            transform: scale(0);
+            opacity: .1;
+        }
+    }
+</style>

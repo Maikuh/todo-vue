@@ -1,19 +1,22 @@
 <template>
-    <div class="text-xs-center">
-        <h1>Landing goes here</h1>
-        <v-btn :disabled="dialog" :loading="dialog" class="white--text"
-            color="purple darken-2" @click.stop="dialog = true">
-                Start loading
-        </v-btn>
-        <v-dialog v-model="dialog" hide-overlay persistent
-        width="300">
-            <v-card color="primary" dark>
-                <v-card-text>Please stand by
-                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
-    </div>
+    <v-jumbotron gradient="180deg, rgba(33,150,243,1) 0%, rgba(250,250,250,1) 100%">
+        <v-container fill-height>
+            <v-layout align-center>
+                <v-flex>
+                    <h3 class="display-3">Welcome to the site</h3>
+
+                    <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
+
+                    <v-divider class="my-3"></v-divider>
+
+                    <div class="title mb-3">Start writing your todos now!</div>
+
+                    <v-btn class="mx-0" :to="{name: 'App'}" color="primary" large>
+                    Start</v-btn>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-jumbotron>
 </template>
 
 <script>

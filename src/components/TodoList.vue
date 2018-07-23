@@ -3,29 +3,31 @@
         <!-- <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="todo-input" placeholder="What needs to be done?"> -->
         <v-container>
             <v-layout row wrap>
-                <v-flex xs12 sm8 offset-sm2 md6 offset-md3>
-
-                    <v-text-field v-model="newTodo" @keyup.enter="addTodo" label="What needs to be done?"></v-text-field>
+                <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
+                    
+                    <v-card class="pa-4">
+                        <v-text-field v-model="newTodo" @keyup.enter="addTodo" label="What needs to be done?"></v-text-field>
                             
-                    <transition-group enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-                        <todo-item v-for="(todo, index) in todosFiltered" :key="index" :todo="todo" :index="index" :checkAll="!anyRemaining">
+                        <transition-group enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+                            <todo-item v-for="(todo, index) in todosFiltered" :key="index" :todo="todo" :index="index" :checkAll="!anyRemaining">
 
-                        </todo-item>
-                    </transition-group>
-                    <div class="extra-container">
-                        <todo-check-all></todo-check-all>
-                        <todo-items-remaining></todo-items-remaining>
-                    </div>
-
-                    <div class="extra-container">
-                        <todo-filter></todo-filter>
-
-                        <div>
-                            <transition name="fade">
-                                <todo-clear-completed :key="this.$store.getters.showClearCompletedButton"></todo-clear-completed>
-                            </transition>
+                            </todo-item>
+                        </transition-group>
+                        <div class="extra-container">
+                            <todo-check-all></todo-check-all>
+                            <todo-items-remaining></todo-items-remaining>
                         </div>
-                    </div>
+
+                        <div class="extra-container">
+                            <todo-filter></todo-filter>
+
+                            <div>
+                                <transition name="fade">
+                                    <todo-clear-completed :key="this.$store.getters.showClearCompletedButton"></todo-clear-completed>
+                                </transition>
+                            </div>
+                        </div>
+                    </v-card>
 
                 </v-flex>
             </v-layout>
@@ -126,7 +128,7 @@ export default {
 
     .todo-item-label {
         padding: 10px;
-        margin-left: 12px;
+        // margin-left: 12px;
         min-width: 300px;
     }
 
@@ -155,31 +157,9 @@ export default {
         justify-content: space-between;
         font-size: 16px;
         border-top: 1px solid lightgrey;
-        padding-top: 14px;
-        margin-bottom: 14px;
+        padding-top: .5em;
+        margin-bottom: .5em;
     }
-
-    // button {
-    //     font-size: 14px;
-    //     background-color: white;
-    //     appearance: none;
-
-    //     &:hover {
-    //     background: lighten(dodgerblue, 20%);
-    //     }
-
-    //     &:focus {
-    //     outline: none;
-    //     }
-    // }
-
-    // .active {
-    //     background: dodgerblue;
-
-    //     &:hover {
-    //         background: dodgerblue;
-    //     }
-    // }
 
     .fade-enter-active, .fade-leave-active {
         transition: opacity .3s;

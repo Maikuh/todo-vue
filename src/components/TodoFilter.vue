@@ -39,5 +39,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.v-btn-toggle .v-btn {
+    opacity: .8;
+}
+
+.v-btn-toggle .v-btn.v-btn--active {
+    color: #216dac !important;
+}
 </style>

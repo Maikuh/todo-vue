@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout row wrap>
-            <v-flex xs12 sm6 offset-sm3 md4 offset-md4>
+            <v-flex xs12 sm8 offset-sm2 md6 offset-md3>
                 <h2>Login</h2>
                 <hr>
                 <v-alert :value="message" type="error" transition="fade-transition">{{message}}</v-alert>
