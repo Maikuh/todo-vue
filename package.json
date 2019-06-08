@@ -1,7 +1,7 @@
 {
   "name": "todo-vue",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Vue front-end for todo-vue",
   "author": "Mike Araujo <miguelant.araujo@gmail.com>",
   "private": true,
   "scripts": {
@@ -10,8 +10,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "node-sass": "^4.9.0",
+    "axios": "^0.19.0",
+    "node-sass": "^4.12.0",
     "sass-loader": "^7.0.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
