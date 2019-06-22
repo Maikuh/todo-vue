@@ -1,36 +1,11 @@
 <template>
-    <div class="text-xs-center">
-        <h1>Register goes here</h1>
-        <div class="text-xs-center">
-            <v-btn :disabled="dialog" :loading="dialog" class="white--text"
-            color="purple darken-2" @click.stop="dialog = true">
-                Start loading
-            </v-btn>
-            <v-dialog v-model="dialog" hide-overlay persistent
-            width="300">
-                <v-card color="primary" dark>
-                    <v-card-text>Please stand by
-                        <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-                    </v-card-text>
-                </v-card>
-            </v-dialog>
-        </div>
+    <div class="mx-auto text-xs-center mt-5" style="height: 100%">
+        <p>Todos App made by <a href="https://github.com/Maikuh" target="_blank">Maikuh</a></p>
+        <p>See the app on <a href="https://github.com/Maikuh/todo-vue" target="_blank">Github</a></p>
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            dialog: false
-        }
-    },
-    watch: {
-      dialog (val) {
-        if (!val) return
-
-        setTimeout(() => (this.dialog = false), 4000)
-      }
-    }
 }
 </script>

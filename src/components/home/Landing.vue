@@ -11,8 +11,8 @@
 
                     <div class="title mb-3">Start writing your todos now!</div>
 
-                    <v-btn class="mx-0" :to="{name: 'App'}" color="primary" large>
-                    Start</v-btn>
+                    <v-btn class="mx-0" :to="{name: 'Register'}" color="primary" large>
+                    Sign Up</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
