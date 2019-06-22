@@ -26,4 +26,4 @@ This app needs the accompanying server which is at [this repo](https://github.co
 
 ### Demo
 
-> TODO (gifs and/or images)
+![Simple Demo](docs/simple-demo.gif)
